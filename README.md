@@ -1,2 +1,2 @@
-Este es el repositorio de las sesiones en clase
+Este es el repositorio de las sesiones en clase :D
 
