@@ -13,4 +13,6 @@ def cuadro(n):
 
 animacion = FuncAnimation(fig,cuadro,frames=100, interval = 45,blit=False)
 
+#animacion.save('mi_peli.mp4')
+
 plt.show()
