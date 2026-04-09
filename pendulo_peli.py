@@ -40,7 +40,8 @@ figura , ejes = plt.subplots()
 
 masa1, = ejes.plot(x1[0],y1[0],'o')
 masa2, = ejes.plot(x2[0],y2[0],'o')
-#cuerda1, = ejes.plot([0,0],[x1[0],y1[0]],'o') 
+cuerda1, = ejes.plot([0,x1[0]],[0,y1[0]])
+cuerda2, = ejes.plot( [x1[0],x2[0]] , [y1[0],y2[0]])
 ejes.set_xlim([-2.1,2.1]) , ejes.set_ylim([-2.1,0])
 
 def cuadro(n):
@@ -48,9 +49,11 @@ def cuadro(n):
     masa1.set_ydata(y1[n])
     masa2.set_xdata(x2[n])
     masa2.set_ydata(y2[n])
+    cuerda1.set_data([0,x1[n]],[0,y1[n]])
+    cuerda2.set_data([x1[n],x2[n]],[y1[n],y2[n]])
     return masa1,masa2,
 
-animacion = FuncAnimation(figura,cuadro,frames=len(t), interval = 45,blit=False)
+animacion = FuncAnimation(figura,cuadro,frames=len(t), interval = 41,blit=False)
 
 plt.show()
 
