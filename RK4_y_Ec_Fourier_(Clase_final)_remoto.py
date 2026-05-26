@@ -6,11 +6,10 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from IPython.display import HTML
 from matplotlib.animation import FuncAnimation
 
 
-# In[30]:
+# In[10]:
 
 
 def sist_ecs(u,x,t,D=0.5):
@@ -26,7 +25,7 @@ def RK4_EDP_F1D(f,x,t,f0,D=0.5):
     sol = np.zeros( (len(x),len(t)) )
     dx , dt = x[1]-x[0] , t[1]-t[0]
     r = D*dt/dx**2
-    #print('r= ',r)
+    print('r= ',r)
     if r < 0.5:
         sol[:,0] = f0
         for n in range(len(t)-1):
@@ -40,24 +39,18 @@ def RK4_EDP_F1D(f,x,t,f0,D=0.5):
     return sol
 
 
-# In[28]:
+# In[15]:
 
 
-x , t = np.linspace(0,1,20) , np.linspace(0,1,400)
+x , t = np.linspace(0,1,50) , np.linspace(0,1,2500)
 P0 = -x*(x-1)
 u_x_t = RK4_EDP_F1D(sist_ecs,x,t,P0)
 for i in range(1,len(t),20):
-    plt.plot(x,u_x_t[:,i])
-plt.show()
+    plt.plot(x,u_x_t[:,i])    
+plt.savefig('Fourier_imag.pdf')
 
 
-# In[31]:
-
-
-get_ipython().run_cell_magic('timeit', '', 'u_x_t = RK4_EDP_F1D(sist_ecs,x,t,P0)')
-
-
-# In[32]:
+# In[6]:
 
 
 fig , ejes = plt.subplots(1,1)
@@ -74,11 +67,10 @@ animacion = FuncAnimation(fig,cuadro,frames=len(t),
                           interval = 40,blit=True)
 
 plt.close()
-HTML(animacion.to_html5_video()) # Usar esta linea si tengo compresor de video
-#HTML(animacion.to_jshtml()) # Usar esta linea si NO tengo compresor de video
+animacion.save('Fourier_peli1.mp4',writer='ffmpeg',fps=60)
 
 
-# In[33]:
+# In[16]:
 
 
 def P0_barritas(x,T_max=1):
@@ -89,18 +81,18 @@ def P0_barritas(x,T_max=1):
     return P0
 
 
-# In[34]:
+# In[18]:
 
 
-x , t = np.linspace(0,1,20) , np.linspace(0,1,400)
+x , t = np.linspace(0,1,50) , np.linspace(0,1,2500)
 P0 = P0_barritas(x)
 u_x_t = RK4_EDP_F1D(sist_ecs,x,t,P0)
 for i in range(1,len(t),20):
     plt.plot(x,u_x_t[:,i])
-plt.show()
+plt.savefig('Fourier_barritas.pdf')
 
 
-# In[36]:
+# In[9]:
 
 
 fig , ejes = plt.subplots(1,1)
@@ -117,12 +109,5 @@ animacion = FuncAnimation(fig,cuadro,frames=len(t),
                           interval = 40,blit=True)
 
 plt.close()
-HTML(animacion.to_html5_video()) # Usar esta linea si tengo compresor de video
-#HTML(animacion.to_jshtml()) # Usar esta linea si NO tengo compresor de video
-
-
-# In[ ]:
-
-
-
+animacion.save('Fourier_peli2.mp4',writer='ffmpeg',fps=60)
 
